@@ -1,6 +1,6 @@
 <template>
     <Dashboard>
-        <h1>hola mundo</h1>
+        <h1>hola mundo x2. Test</h1>
     </Dashboard>
 </template>
 

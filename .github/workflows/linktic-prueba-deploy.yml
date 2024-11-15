@@ -1,5 +1,8 @@
 name: Linktic prueba deploy
-on: [push]
+on: 
+  push:
+    branches:
+      - master
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
