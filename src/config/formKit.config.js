@@ -13,7 +13,6 @@ export default {
             suffix: 'input-group-text',
             prefixIcon: 'input-group-text',
             suffixIcon: 'input-group-text',
-            help: 'text-muted',
             messages:'text-danger px-0 mb-0',
             message: 'list-group-item'
         },

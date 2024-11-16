@@ -4,19 +4,21 @@
             <FormKit type="form" id="form-register" :actions="false" #default="{state: {valid}}" @submit.prevent="store" >
                 <img src="@/assets/img/logo.svg" class="d-block mx-auto mb-4 mb-lg-5" alt="Logo Linktick" width="200">
 
+                <BackendError :backend-errors="errors" v-if="errors"/>
+            
                 <div class="mb-3">
-                    <FormKit type="email" label="Correo electronico" name="email" validation="required|email" v-model="form.email"></FormKit>
+                    <FormKit autocomplete="off" type="email" label="Correo electronico" name="email" validation="required|email" v-model="form.email"></FormKit>
                 </div>
                 <div class="mb-3">
-                    <FormKit type="password" label="Contraseña" name="password" validation="required|length:6,12" v-model="form.password"></FormKit>
+                    <FormKit autocomplete="off" type="password" label="Contraseña" name="password" validation="required|length:6,12" v-model="form.password"></FormKit>
                 </div>
                 <div class="mb-3">
-                    <FormKit type="password" label="Contraseña" name="confirm_password" validation="required|confirm:password" v-model="form.confirm_password"></FormKit>
+                    <FormKit autocomplete="off" type="password" label="Contraseña" name="confirm_password" validation="required|confirm:password" v-model="form.confirm_password"></FormKit>
                 </div>
                 <div class="d-flex gap-3 align-items-center flex-wrap justify-content-around">
                     <router-link :to="{name: 'auth.login'}" class="btn btn-outline-primary">Tengo una cuenta</router-link>
                     <button type="submit" class="btn btn-primary" @click.prevent="store" :disabled="!valid || isLoading">
-                        <LoaderSpinner :is-loading="isLoading" class="me-2"></LoaderSpinner>
+                        <LoaderSpinner  v-if="isLoading" class="me-2"></LoaderSpinner>
                         {{  isLoading ? 'Registrando': 'Registrarme' }}
                     </button>  
                 </div>
@@ -26,19 +28,18 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue'
     import LayoutAuth from '@layouts/auth/template.vue'
-    import { auth } from '@/config/firebase.config'
-    import { createUserWithEmailAndPassword } from 'firebase/auth';
-    import { useRouter } from 'vue-router';
-import Swal from 'sweetalert2';
+    import Swal from 'sweetalert2';
+    import { ref } from 'vue'
+    import { useAuthStore } from "@/store/authStore.js"
 
     defineOptions({
         name: 'AuthRegister'
     })
 
     const isLoading = ref(<Boolean>false)
-    const router = useRouter()
+    const authStore = useAuthStore()
+    const errors = ref(null)
 
     const form = ref(<Record<string, string|null>>{
         email: null,
@@ -51,14 +52,14 @@ import Swal from 'sweetalert2';
 
         try {
             isLoading.value = true
-            const userCredential = await createUserWithEmailAndPassword(auth, form.value.email, form.value.password);
-            
-            Swal.fire('Excelente', 'Nuevo usuario creado y autenticado.', 'success')
-                .then(() => router.push({name: 'home'}) )
+            errors.value = null
+
+            await authStore.register({...form.value})
 
         } catch (error: any) {
-            Swal.fire('Ops', 'Ocurrió un error, por favor intentalo otra vez.', 'error')
-            console.error('Error al crear usuario:', error);
+            errors.value = error
+            form.value.password = null
+            form.value.confirm_password = null
         } finally{
             isLoading.value = false
         }

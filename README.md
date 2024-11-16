@@ -68,3 +68,12 @@ Se usaron los colores base de bootstrap agregando el color principal de [Linktic
 
 https://linktic-prueba-ingreso.vercel.app/
 
+
+## Features
+
+- Responsive
+- SPA
+- PWA
+- Autenticación funcional con firebase
+
+

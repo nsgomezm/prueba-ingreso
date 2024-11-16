@@ -21,4 +21,5 @@ export const httpMessage:Record<string, string> = {
     "auth/user-not-found": "Usuario no encontrado.", 
     "auth/wrong-password": "Contraseña incorrecta.", 
     "auth/invalid-credential": "Credenciales incorrectas.", 
+    "auth/email-already-in-use": "El correo ya se encuentra registrado."
 }

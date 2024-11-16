@@ -10,6 +10,9 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
 
     &:has(.show-sidebar){
         &::before{
@@ -40,6 +43,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 2px 2px .5rem rgba(black, .2);
+    z-index: 100;
 
     .btn{
         --bs-btn-active-border-color: white;

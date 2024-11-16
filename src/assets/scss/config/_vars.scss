@@ -19,7 +19,6 @@ $input-focus-bg: $input-bg;
 $dropdown-bg: white;
 $dropdown-link-hover-bg: #ddd;
 
-
 $fz: (
     bigest: 2rem,
     biger: 1.5rem,
@@ -41,6 +40,19 @@ $utilities: (
         class: min-w,
         responsive: true,
         values: (
+            300: 300px,
+            400: 400px,
+            500: 500px,
+            600: 600px,
+        )
+    ),
+    "max-widths": (
+        property: max-width,
+        class: max-w,
+        responsive: true,
+        values: (
+            100: 100px,
+            200: 200px,
             300: 300px,
             400: 400px,
             500: 500px,

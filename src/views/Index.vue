@@ -1,14 +1,11 @@
 <template>
-    <Dashboard>
-        <h1>hola mundo x2. Test</h1>
-    </Dashboard>
+    <div>
+        <h3>hola mundo</h3>
+        <h3>hola mundo</h3>
+        <h3>hola mundo</h3>
+    </div>
 </template>
 
 <script setup lang="ts">
-    defineOptions({
-        name: 'index'
-    })
-
-    import Dashboard from '@layouts/dashboard/template.vue'
 
 </script>

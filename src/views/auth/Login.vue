@@ -15,7 +15,7 @@
                 <div class="d-flex gap-3 align-items-center flex-wrap justify-content-around ">
                     <router-link :to="{name: 'auth.register'}" type="submit" class="btn btn-outline-primary">Registrarse</router-link>
                     <button type="submit" class="btn btn-primary" @click.prevent="store" :disabled="!valid || isLoading">
-                        <LoaderSpinner :is-loading="isLoading" class="me-2"></LoaderSpinner>
+                        <LoaderSpinner  v-if="isLoading" class="me-2"></LoaderSpinner>
                         Iniciar sesión
                     </button>
                 </div>
@@ -26,13 +26,13 @@
 
 <script setup lang="ts">
     import LayoutAuth from '@layouts/auth/template.vue'
-    import Swal from 'sweetalert2';
-    import { ref } from 'vue';
-    import { auth } from '@/config/firebase.config';
-    import { signInWithEmailAndPassword } from 'firebase/auth';
     import BackendError from '@/components/form/BackendError.vue';
+    import { ref } from 'vue';
     import { useRouter } from 'vue-router';
+    import { useAuthStore } from '@/store/authStore.js'
+    import { reset } from '@formkit/vue';
 
+    
     defineOptions({
         name: 'AuthLogin'
     })
@@ -40,6 +40,7 @@
     const router = useRouter()
     const isLoading = ref(<boolean>false)
     const errors = ref(null)
+    const authStore = useAuthStore()
 
     const form = ref(<Record<string, string | null>>{
         email: null,
@@ -53,14 +54,10 @@
             isLoading.value = true 
             errors.value = null
 
-            const userCredential = await signInWithEmailAndPassword(auth, form.value.email, form.value.password)
-            Swal.fire('Hola!', 'Has iniciado sesión de forma exitosa', 'success')
-            .then(() => router.push({name: 'home'}))
-
-
-            // console.log('usuario autenticado', userCredential.user)
+            await authStore.login({...form.value})
 
         } catch (error: any) {
+            reset('form-login')
             errors.value = error
         } finally {
             isLoading.value = false

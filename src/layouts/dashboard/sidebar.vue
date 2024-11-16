@@ -1,17 +1,26 @@
 <template>
     <div class="sidebar" id="sidebar">
-        <a href="#" class="sidebar__link sidebar--logo">
+        <RouterLink :to="{name: 'home'}" class="sidebar__link sidebar--logo">
             <i class="fa-solid fa-bars-staggered"></i>
             <span>LINKTIC.COM</span>
-        </a> 
+        </RouterLink>
         <div class="sidebar__wrapper"  data-simplebar>
             <div>
                 <div class="sidebar__item">
-                    <h3 class="sidebar__subtitle">Profile</h3>
-                    <a href="#" class="sidebar__link">
+                    <h3 class="sidebar__subtitle">Adminsitración</h3>
+                    <!-- <a href="#" class="sidebar__link">
                         <i class="fa-solid fa-user"></i>
-                        <span class="sidebar__label">item profile</span>    
-                    </a>
+                        <span class="sidebar__label">Proveedores</span>    
+                    </a> -->
+                    <RouterLink :to="{name: 'products'}" class="sidebar__link" :class="{'active': $router.currentRoute.value.meta.group == 'products'}">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="sidebar__label">Productos</span>    
+                    </RouterLink>
+                    <!-- <a href="#" class="sidebar__link">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="sidebar__label">Ventas</span>    
+                    </a> -->
+                    <!-- 
                     <div class="sidebar__dropdown" v-for="i in 2" >
                         <a href="#" class="sidebar__link">
                             <i class="fa-solid fa-user"></i>
@@ -32,29 +41,21 @@
                                 <span class="sidebar__label">Accounts</span>
                             </a>
                         </div>
-                    </div>
-                    <a href="#" class="sidebar__link">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="sidebar__label">item profile</span>    
-                    </a>
-                    <a href="#" class="sidebar__link">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="sidebar__label">item profile</span>    
-                    </a>
+                    </div> -->
                 </div>
                 <div class="sidebar__item">
-                    <h3 class="sidebar__subtitle">menu</h3>
-                    <a href="#" class="sidebar__link">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="sidebar__label">item menu</span>    
+                    <h3 class="sidebar__subtitle">Contacto</h3>
+                    <a href="https://www.linkedin.com/in/steveen-g%C3%B3mez-a1b7b8320/" target="_blank" class="sidebar__link">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                        <span class="sidebar__label">Linkedin</span>    
                     </a>
-                    <a href="#" class="sidebar__link">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="sidebar__label">item menu</span>    
+                    <a href="https://wa.me/+573135504351" target="_blank" class="sidebar__link">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span class="sidebar__label">WhatsApp</span>    
                     </a>
-                    <a href="#" class="sidebar__link">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="sidebar__label">item menu</span>    
+                    <a href="mailto:nicolsteveengomesmarin@gmail.com" class="sidebar__link">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span class="sidebar__label">Correo electronico</span>    
                     </a>
                 </div>
             </div>   

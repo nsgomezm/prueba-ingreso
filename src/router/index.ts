@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-import Index from '@v/Index.vue'
-import AuthLogin from '@v/auth/Login.vue'
-import AuthRegister from '@v/auth/Register.vue'
 import { auth } from '@/config/firebase.config'
 import Swal from 'sweetalert2'
+
+import routesGuest from './guest'
+import routesAdmin from './admin'
+import AdminTemplate from '@layouts/dashboard/template.vue'
+
+import { useBreadcrumStore } from "@/store/breadcrumStore.js"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,25 +15,15 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     meta:{
       requiresAuth: true,
+      label: "Inicio"
     },
-    component: Index
+    component: AdminTemplate,
+    children: [
+      ...routesAdmin
+    ]
   },
-  {
-    path: '/Iniciar-sesion',
-    name: 'auth.login',
-    meta:{
-      requiresGuest: true,
-    },
-    component: AuthLogin
-  },
-  {
-    path: '/Registrarme',
-    name: 'auth.register',
-    meta:{
-      requiresGuest: true,
-    },
-    component: AuthRegister
-  },
+
+  ...routesGuest
 ]
 
 const router = createRouter({
@@ -56,7 +49,11 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
 
+router.afterEach((to, from) => {
+  const breadcrum = useBreadcrumStore()
+  breadcrum.updateBreadcrumbsState()
 })
 
 

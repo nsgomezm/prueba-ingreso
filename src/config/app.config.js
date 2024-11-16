@@ -8,14 +8,12 @@ import ResizeObserver from 'resize-observer-polyfill';
 window.ResizeObserver = ResizeObserver;
 
 import Swal from 'sweetalert2'
+import iziToast from "izitoast";
+
 try{
     window.bootstrap = bootstrap
 	window.Popper = Popper
-    // window.Swiper = Swiper
-	// window._ = _
-	// window.httpErrors = httpErrors
-    // window.formatting = Formatting
-    // window.notify = iziToast
+    window.notify = iziToast
 	window.Swal = Swal.mixin({
         showCloseButton: true,
         customClass: {
