@@ -18,7 +18,7 @@
                     <a href="#" class="dropdown-item"><i class="fa-solid fa-gear me-2"></i>Configuraciones</a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item"><i class="fa-solid fa-lock me-2"></i> Bloquear pantalla</a>
-                    <a href="#" class="dropdown-item text-danger"> <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Cerrar sesión</a>
+                    <a href="#" class="dropdown-item text-danger" @click.prevent="logout"> <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Cerrar sesión</a>
                 </div>
             </div>
         </div>
@@ -30,8 +30,28 @@
         name: 'layout-navbar'
     })
 
+    import { signOut } from 'firebase/auth';
+    import Swal from 'sweetalert2';
+    import { useRouter } from 'vue-router';
+    import { auth } from '@/config/firebase.config';
 
-    function toggleSidebar(event){
+    const router = useRouter()
+    
+    async function logout(): Promise<void>{
+        try{
+            await signOut(auth)
+            .then(() => {
+                router.push({name:'auth.login'})
+            })
+            
+        } catch (e){
+            Swal.fire('ops', 'Ocurrió un error incesperado, por favor vuelve a intentarlo', 'error')
+            console.error(e)
+        }
+    }
+
+
+    function toggleSidebar(event: Event): void{
         event.stopPropagation()
         const sidebar:HTMLElement | null = document.querySelector('#sidebar')
         sidebar?.classList.toggle('show-sidebar')

@@ -1,0 +1,115 @@
+
+/*
+*
+*   FormKit
+*
+*/
+
+.formkit-outer{
+    &[data-invalid="true"] .form-control {@extend .is-invalid;}
+    &[data-complete="true"] .form-control {@extend .is-valid;}
+
+    select.formkit-input{
+        @extend .form-select
+    }
+}
+
+.formkit-icon > *{
+    width: 17px;
+}
+
+
+#form-contact{
+    .formkit-wrapper:has(.formkit-input[name]) .formkit-label{
+        display: none;
+    }
+}
+
+.formkit-label{
+    &:first-letter{
+        text-transform: uppercase;
+    }
+}
+
+.formkit-input::placeholder{
+    text-transform: capitalize;
+}
+// End form kit
+
+
+/*
+*
+*   v-select
+*
+*/
+
+.v-select{
+    height: 36px;
+    display: flex;
+    align-items: center;
+
+    --vs-dropdown-option--active-bg: #{$gray-400};
+    --vs-dropdown-option--active-color: black;
+
+    .vs__dropdown-toggle{
+        width: 100%;
+    }
+    .vs__actions{
+        z-index: 100;
+    }
+
+    .vs__selected-options{
+        flex-wrap: nowrap;
+    }
+
+    input::placeholder{
+        color: $gray-400;
+    }
+}
+
+.formkit-form .v-select{
+    height: 38px;
+    .vs__dropdown-toggle{
+        padding: 0;
+        height: 100%;
+        @extend .form-control;
+        display: flex;
+        &:has(~ .vs__dropdown-menu){
+            box-shadow: $input-focus-box-shadow;
+            border-color: $input-focus-border-color;
+        }
+
+        &:has(.vs__selected){
+            @extend .is-valid;
+            .vs__selected{
+                padding-right: 2rem;
+            }
+        }
+
+    }
+}
+
+
+// End v-select
+
+
+
+/*
+*
+*   datatable
+*
+*/
+
+.datatable{
+    .dt-column-title{
+        text-transform: capitalize;
+        text-wrap: nowrap;
+    }
+
+    .row{
+        margin-inline: 0 !important;
+    }
+}
+
+
+// End datatable

@@ -52,6 +52,7 @@ $utilities: (
         class: cursor,
         values: (
             default: default, /*  El cursor por defecto. */
+            progress: progress, /*El cursor aparece cargando*/
             pointer: pointer, /*  Un puntero, generalmente una mano con un dedo apuntando. */
             text: text, /*  Un cursor de texto, generalmente una barra vertical. */
             move: move, /*  Un cursor de movimiento, generalmente una cruz con flechas. */

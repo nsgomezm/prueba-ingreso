@@ -1,38 +1,67 @@
 <template>
     <LayoutAuth>
         <div class="card card-body bg-white shadow rounded-4 min-w-300 min-w-lg-400" >
-            <form>
-                <h2 class="fw-bold text-center">LINKTIC.COM</h2>
-                <hr>
+            <FormKit type="form" id="form-register" :actions="false" #default="{state: {valid}}" @submit.prevent="store" >
+                <img src="@/assets/img/logo.svg" class="d-block mx-auto mb-4 mb-lg-5" alt="Logo Linktick" width="200">
+
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nombre</label>
-                    <input type="email" class="form-control" id="name">
+                    <FormKit type="email" label="Correo electronico" name="email" validation="required|email" v-model="form.email"></FormKit>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo electronico</label>
-                    <input type="email" class="form-control" id="email">
+                    <FormKit type="password" label="Contraseña" name="password" validation="required|length:6,12" v-model="form.password"></FormKit>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
-                <div class="mb-3">
-                    <label for="password_confirm" class="form-label">Confirmar contraseña</label>
-                    <input type="password" class="form-control" id="password_confirm">
+                    <FormKit type="password" label="Contraseña" name="confirm_password" validation="required|confirm:password" v-model="form.confirm_password"></FormKit>
                 </div>
                 <div class="d-flex gap-3 align-items-center flex-wrap justify-content-around">
-                    <router-link :to="{name: 'auth.login'}" type="submit" class="btn btn-outline-primary">ya tengo una cuenta</router-link>
-                    <router-link to="/" type="submit" class="btn btn-primary">Registrarme</router-link>
+                    <router-link :to="{name: 'auth.login'}" class="btn btn-outline-primary">Tengo una cuenta</router-link>
+                    <button type="submit" class="btn btn-primary" @click.prevent="store" :disabled="!valid || isLoading">
+                        <LoaderSpinner :is-loading="isLoading" class="me-2"></LoaderSpinner>
+                        {{  isLoading ? 'Registrando': 'Registrarme' }}
+                    </button>  
                 </div>
-            </form>
+            </FormKit>
         </div>
     </LayoutAuth>
 </template>
 
 <script setup lang="ts">
+    import { ref } from 'vue'
+    import LayoutAuth from '@layouts/auth/template.vue'
+    import { auth } from '@/config/firebase.config'
+    import { createUserWithEmailAndPassword } from 'firebase/auth';
+    import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
+
     defineOptions({
         name: 'AuthRegister'
     })
 
-    import LayoutAuth from '@layouts/auth/template.vue'
+    const isLoading = ref(<Boolean>false)
+    const router = useRouter()
+
+    const form = ref(<Record<string, string|null>>{
+        email: null,
+        password: null,
+        confirm_password: null,
+    })
+
+    async function store(): Promise<void>{
+        if(isLoading.value || !form.value.email || !form.value.password ) return 
+
+        try {
+            isLoading.value = true
+            const userCredential = await createUserWithEmailAndPassword(auth, form.value.email, form.value.password);
+            
+            Swal.fire('Excelente', 'Nuevo usuario creado y autenticado.', 'success')
+                .then(() => router.push({name: 'home'}) )
+
+        } catch (error: any) {
+            Swal.fire('Ops', 'Ocurrió un error, por favor intentalo otra vez.', 'error')
+            console.error('Error al crear usuario:', error);
+        } finally{
+            isLoading.value = false
+        }
+    }
+
 </script>
