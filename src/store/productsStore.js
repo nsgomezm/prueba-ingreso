@@ -29,16 +29,14 @@ export const useProductsStore = defineStore('products', {
             
             // Primero se consulta en pinia 
             const indexState = this._products.findIndex(product => product.id == id)
-            if(indexState){
-                return this._products[indexState]
+            if(indexState >= 0){
+                return {...this._products[indexState]}
             }
 
             // Segunda busqueda en la BD
             const res = await getDoc(doc(db, 'products', id))
             if(res.exists()){
                 const product = res.data()
-                this._products.push(product)    
-
                 return product
             }
 
@@ -53,12 +51,14 @@ export const useProductsStore = defineStore('products', {
             res.forEach(item => {
                 let product = item.data()
                 product.id = item.id
+                product.stock = parseInt(product.stock)
+                product.min_stock = parseInt(product.min_stock)
                 products.push(product)
             })
             this._products = products
         },
 
-        async confirmDelete(id){
+        async confirmDelete(id, redirect = false){
             Swal.fire({
                 title: 'confirmación necesaria!',
                 html: '¿Estas seguro de eliminar este producto?, <br> <b>No lo volveras a recuperar</b>',
@@ -75,7 +75,7 @@ export const useProductsStore = defineStore('products', {
                 preConfirm: async() => {
                     await this.delete(id)
                 }
-            })
+            }).then(() => redirect ? this.router.push({name:'products'}) :  null)
         }, 
         async delete(id) {
             try{
@@ -101,6 +101,10 @@ export const useProductsStore = defineStore('products', {
             if(!this._products) this.getAllProducts()
 
             return this._products
+        },
+
+        productsAvailable: function(){
+            return this._products.filter(product => product.stock >= 1)
         }
 
     }

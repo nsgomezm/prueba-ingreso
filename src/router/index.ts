@@ -12,10 +12,8 @@ import { useBreadcrumStore } from "@/store/breadcrumStore.js"
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
     meta:{
       requiresAuth: true,
-      label: "Inicio"
     },
     component: AdminTemplate,
     children: [

@@ -77,3 +77,31 @@ https://linktic-prueba-ingreso.vercel.app/
 - Autenticación funcional con firebase
 
 
+
+## Instalación - con Docker
+
+
+1. Instalación y construcción del proyecto.
+```bash
+  docker run --rm -v "$(pwd):/var/www/html" -w /var/www/html node:20.0.0 npm i
+```
+    
+    
+2. Se debe crear un archivo .env con las siguientes variables
+```bash
+    APP_NAME="Linktic"
+    APP_ENV=local
+    APP_DEBUG=true
+    APP_TIMEZONE='America/Bogota'
+    APP_URL=http://localhost:4000
+    BASE_URL=http://localhost:4000
+
+    APP_SERVICE=prueba_ingreso
+    APP_PORT=4000
+```
+
+3. Se corre el proyecto para su correcta visualización 
+```bash
+  docker-compose up -d
+```
+

@@ -4,6 +4,12 @@
     </div>
     <div class="table-responsive" v-else-if="productsStore.products && !isLoading">
         <DataTable :columns="columns" :data="productsStore.products" >
+            <template #name="{rowData}">
+                <span v-tooltip="rowData.stock === 0 ? 'Se acabo' : rowData.min_stock > rowData.stock ? 'Se esta agotando' : 'Disponible'">
+                    <i class="fa-solid fa-tag" :class="{'text-danger': rowData.stock == 0, 'text-warning': rowData.min_stock >= rowData.stock, 'text-success': rowData.min_stock < rowData.stock }"></i>
+                    {{  rowData.name }}
+                </span>
+            </template>
             <template #unit_cost="{rowData}">
                 {{  vueNumberFormat(rowData.unit_cost) }}
             </template>
@@ -32,18 +38,19 @@
     import { onBeforeMount, ref } from 'vue'
     import { useProductsStore } from '@/store/productsStore.js'
 
-    const isLoading = ref(<boolean>true)
+    const isLoading = ref(<boolean>false)
     const productsStore = useProductsStore()
 
     onBeforeMount(async () => {
-        isLoading.value = true 
-        await productsStore.getAllProducts()
-        .then(() => isLoading.value = false)
-        
+        if(productsStore.products == null){
+            isLoading.value = true
+            await productsStore.getAllProducts()
+            .then(() => isLoading.value = false)
+        }
     })
 
     const columns = ref([
-        {data: 'name', title: 'Nombre'},
+        {data: null, render:'#name', title: 'Nombre'},
         {data: 'stock', title: 'Stock'},
         {data: 'min_stock', title: 'Min. Stock'},
         {data: null, render:'#unit_cost', title: 'Costo unid.'},

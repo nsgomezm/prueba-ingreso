@@ -6,33 +6,32 @@
                 <button class="btn btn-success" v-tooltip="'Actualizar información'" @click="reloadTable"> 
                     <i class="fa-solid fa-rotate" :class="{' fa-spin': isLoading}"></i>
                 </button>
-                <router-link :to="{name: 'products.new'}" class="btn btn-secondary">
+                <router-link :to="{name: 'orders.new'}" class="btn btn-secondary">
                     Agregar
                 </router-link>
             </div>
         </div>
 
         <div class="card card-body border-0">
-            <TableProducts></TableProducts>
+            <TableOrders></TableOrders>
         </div>
-
     </div>
 </template>
 
 <script setup lang="ts">
-    import TableProducts from './Table.vue'
     import { ref } from 'vue';
-    import { useProductsStore } from '@/store/productsStore.js';
+    import { useOrdersStore } from '@/store/ordersStore.js';
+    import TableOrders from './Table.vue'
 
-    const products = useProductsStore()
-    const isLoading = ref(<boolean>false)
+    const ordersStore = useOrdersStore()
+    const isLoading = ref(<Boolean>false)
 
     async function reloadTable(){
         try{
             if(isLoading.value) return
 
             isLoading.value = true
-            await products.getAllProducts()
+            await ordersStore.getAllOrders()
             notify.success({message: 'Información actualizada'})
         } catch (error){
             console.log(error)
@@ -40,4 +39,5 @@
             isLoading.value = false
         }
     }
+
 </script>

@@ -43,14 +43,15 @@ declare module '@/store/productsStore.js' {
   export function useProductsStore(): any;
 }
 
+declare module '@/store/ordersStore.js' {
+  export function useOrdersStore(): any;
+}
+
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
   const component: DefineComponent<{}, {}, any>
   export default component
 }
-
-  
-
 
 declare module '@formkit/vue' {
   import { plugin } from '@formkit/vue';
@@ -65,4 +66,10 @@ declare module 'vue-number-format' {
   const VueNumberFormat: any;
   export default VueNumberFormat;
 }
+
+declare module 'vue-select' {
+  const vueSelect: any;
+  export default vueSelect;
+}
+
 

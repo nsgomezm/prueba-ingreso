@@ -11,6 +11,12 @@ import { plugin as pluginFormKit, defaultConfig } from "@formkit/vue"
 
 import VueNumberFormat from 'vue-number-format'
 
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
+
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+
 import "./assets/scss/app.scss"
 
 import { auth } from '@/config/firebase.config'
@@ -47,6 +53,8 @@ auth.onAuthStateChanged(() => {
         appCreated.component('LoaderSection', Loader)
         appCreated.component('BackendError', FormBackendError)
         appCreated.component('DataTable', Datatable)
+        appCreated.component('v-select', vSelect)
+        appCreated.component('FormDate', VueDatePicker)
 
         appCreated.mount('#app')
     }

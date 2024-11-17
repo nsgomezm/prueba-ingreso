@@ -15,6 +15,27 @@ p{
 // End Bootstrap
 
 
+
+
+
+/*
+*
+*   datatable
+*
+*/
+
+
+.dp__input_icon.dp__input_icons{
+    display: none
+}
+.dp__pointer.dp__input_readonly.dp__input.dp__input_icon_pad.dp__input_reg{
+    padding-left: 15px;
+}
+
+// End v-select
+
+
+
 /*
 *
 *   FormKit
@@ -159,3 +180,59 @@ table.datatable{
 
 
 // End datatable
+
+
+/*
+*
+*   v-select
+*
+*/
+
+.v-select{
+    height: 36px;
+    display: flex;
+    align-items: center;
+
+    --vs-dropdown-option--active-bg: #{$gray-400};
+    --vs-dropdown-option--active-color: black;
+
+    .vs__dropdown-toggle{
+        width: 100%;
+    }
+    .vs__actions{
+        z-index: 100;
+    }
+
+    .vs__selected-options{
+        flex-wrap: nowrap;
+    }
+
+    input::placeholder{
+        color: $gray-400;
+    }
+}
+
+.formkit-form .v-select{
+    height: 38px;
+    .vs__dropdown-toggle{
+        padding: 0;
+        height: 100%;
+        @extend .form-control;
+        display: flex;
+        &:has(~ .vs__dropdown-menu){
+            box-shadow: $input-focus-box-shadow;
+            border-color: $input-focus-border-color;
+        }
+
+        &:has(.vs__selected){
+            @extend .is-valid;
+            .vs__selected{
+                padding-right: 2rem;
+            }
+        }
+
+    }
+}
+
+
+// End v-select

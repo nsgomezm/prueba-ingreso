@@ -9,9 +9,12 @@ p, h1,h2,h3,h4,h5,h6{
 }
 
 
+label.form-label{
+    margin: 0;
+}
+
 label.form-label:has(~ input[required]),
 label[required]{
-    margin: 0;
     &::after{
         content:"*";
         color: $danger;
