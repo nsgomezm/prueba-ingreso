@@ -16,7 +16,7 @@
                 {{ rowData.products?.length ?? 0 }}
            </template>
             <template #total="{ rowData }">
-                {{ vueNumberFormat(rowData.total) }}
+                {{ currency(rowData.total) }}
            </template>
             <template #address="{ rowData }">
                 <p v-text-truncate:20="rowData.address"></p>
@@ -43,6 +43,7 @@
     import { onBeforeMount, ref } from 'vue'
     import { useOrdersStore } from '@/store/ordersStore.js'
     import { format } from '@formkit/tempo'
+    import { currency } from '@/helpers/formatter'
 
     const isLoading = ref(<boolean>false)
     const ordersStore = useOrdersStore()

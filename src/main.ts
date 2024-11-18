@@ -9,8 +9,6 @@ import Datatable from "@/config/datatable.config"
 import configFormKit from  "@/config/formKit.config"
 import { plugin as pluginFormKit, defaultConfig } from "@formkit/vue"
 
-import VueNumberFormat from 'vue-number-format'
-
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 
@@ -46,7 +44,6 @@ auth.onAuthStateChanged(() => {
         
         appCreated.use(pinia)
         appCreated.use(router)
-        appCreated.use(VueNumberFormat, {prefix: '$', decimal: '.', thousands: ',', precision: 0})
         appCreated.use(pluginFormKit, defaultConfig(configFormKit))
         
         appCreated.component('LoaderSpinner', Spinner)

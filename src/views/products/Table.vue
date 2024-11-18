@@ -11,10 +11,10 @@
                 </span>
             </template>
             <template #unit_cost="{rowData}">
-                {{  vueNumberFormat(rowData.unit_cost) }}
+                {{  currency(rowData.unit_cost) }}
             </template>
             <template #wholesale_cost="{rowData}">
-                {{  vueNumberFormat(rowData.wholesale_cost) }}
+                {{  currency(rowData.wholesale_cost) }}
             </template>
             <template #description="{rowData}">
                 <p v-text-truncate:20="rowData.description">N/A</p>
@@ -37,6 +37,7 @@
 
     import { onBeforeMount, ref } from 'vue'
     import { useProductsStore } from '@/store/productsStore.js'
+    import { currency } from '@/helpers/formatter';
 
     const isLoading = ref(<boolean>false)
     const productsStore = useProductsStore()

@@ -8,7 +8,7 @@
         </div>
         <div class="navbar__menu">
             <div class="vr text-white"></div>
-            <div class="dropdown"> 
+            <div class="dropdown" v-if="authStore.user"> 
                 <div class="cursor-pointer" data-bs-toggle="dropdown">
                     <span class="navbar--title-avatar">Juanito perez</span>
                     <img :src="`https://ui-avatars.com/api/?name=${authStore.user.email}&rounded=true`" alt="Avatar" class="navbar--avatar">

@@ -24,6 +24,12 @@ export const useOrdersStore = defineStore('orders', {
 
             return order
         },
+
+        async validStock(){
+
+        },
+        
+        
         async update(form){
             await updateDoc(doc(db, 'orders', form.id), {...form})
             await this.getAllOrders()

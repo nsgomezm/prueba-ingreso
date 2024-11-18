@@ -62,11 +62,6 @@ declare module '@formkit/vue' {
   export const pluginFormKit: Plugin;
 }
 
-declare module 'vue-number-format' {
-  const VueNumberFormat: any;
-  export default VueNumberFormat;
-}
-
 declare module 'vue-select' {
   const vueSelect: any;
   export default vueSelect;

@@ -9,9 +9,13 @@
             <div class="row">
                 <div class="col-12 col-xl-5 me-xl-auto">
                     <FormOrder/>
-
+                </div>
+                <div class="col-xl-5 order-3">
                     <div class="d-flex gap-3 align-items-center flex-wrap justify-content-center">
                         <router-link :to="{name: 'orders'}" type="button" class="btn btn-outline-secondary">Regresar</router-link>
+                        <button type="button" class="btn btn-danger" @click.prevent="ordersStore.confirmDelete(form.id)">
+                            Eliminar
+                        </button>
                         <button type="submit" class="btn btn-success" @click.prevent="store" :disabled="isLoading"> <!-- !valid ||  -->
                             <LoaderSpinner  v-if="isLoading" class="me-2"></LoaderSpinner>
                             {{ form.id !== undefined ? 
@@ -19,7 +23,6 @@
                                 isLoading ? 'Creando': 'Crear' }} Orden
                         </button>
                     </div>
-
                 </div>
                 <div class="col-12 col-xl-6">
                     <FormDetailOrder/>
@@ -57,12 +60,12 @@
         comments: null,
         status: null,
         products:[],
-        total: 0,
+        total: null,
     })
 
     provide('order', form )
 
-    watch(() => form.value.products, (allProductsSelected) => {
+    watch(() => form.value.products, (allProductsSelected) => {        
         /* Con esto aseguramos que no se repitan los productos, para posteriormente sumarlos */
         const filteredProducts = allProductsSelected.reduce((acc, item) => {
             if(item){

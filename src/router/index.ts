@@ -31,7 +31,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   
-  if(to.matched.some(route => route.meta.requiresAuth)){
+  if(to.matched.some(route => route.meta?.requiresAuth)){
     if(auth.currentUser) {
       next()
     } else {
@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
       next({ name:'auth.login' })
     }
 
-  } else if (to.matched.some(route => route.meta.requiresGuest) && auth.currentUser){
+  } else if (to.matched.some(route => route.meta?.requiresGuest) && auth.currentUser){
     if(to.name == 'auth.login' || to.name == 'auth.register'){
       next({name: 'home'})
     }

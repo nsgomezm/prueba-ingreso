@@ -13,11 +13,11 @@
             </div>
             <div class="col-12 col-lg-6 mb-3" v-if="selectedProduct">
                 <label>Precio unitario</label>
-                <input type="text" class="form-control" :value="vueNumberFormat(selectedProductCostUnit)" disabled>
+                <input type="text" class="form-control" :value="currency(selectedProductCostUnit)" disabled>
             </div>
             <div class="col-12 col-lg-6" v-if="selectedProduct">
                 <label>Total</label> <!--  (con impuestos) -->
-                <input type="text" class="form-control" :value="vueNumberFormat(totalCost)" disabled>
+                <input type="text" class="form-control" :value="currency(totalCost)" disabled>
             </div>
             <div class="col-12 mb-3" v-if="selectedProduct">
                 <small v-if="selectedProduct.min_wholesale_cost < form.count" class="fw-bold text-success">Cliente mayorista</small>
@@ -47,8 +47,8 @@
                 <tbody>
                     <tr v-for="product in order.products">
                         <td>{{  product.name }}<span class="badge bg-info text-white ms-2">x {{ product.count }}</span></td>
-                        <td>{{ vueNumberFormat(parseInt(product.unit_cost))  }}</td>
-                        <td>{{ vueNumberFormat(parseInt(product.total_cost))  }}</td>
+                        <td>{{ currency(parseInt(product.unit_cost))  }}</td>
+                        <td>{{ currency(parseInt(product.total_cost))  }}</td>
                         <td>
                             <button type="button" class="btn btn-sm" @click.prevent="removeProduct(product.id)">
                                 <i class="fa-solid fa-delete-left text-danger"></i>
@@ -62,7 +62,8 @@
 </template>
 
 <script setup lang="ts">
-    import { useProductsStore } from '@/store/productsStore.js';
+    import { currency } from '@/helpers/formatter';
+import { useProductsStore } from '@/store/productsStore.js';
 import { reset } from '@formkit/vue';
     import { reactive,computed , ref, watch } from 'vue';
     import { inject, onBeforeMount } from 'vue';

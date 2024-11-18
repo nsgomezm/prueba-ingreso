@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', {
             this._user = userCredential.user
             
             Swal.fire('Excelente', 'Nuevo usuario creado y autenticado.', 'success')
-                .then(() => this.router.push({name: 'home'}) )
+                .then(() => window.location.reload() )
         },
         
         async login({email, password}){
@@ -43,7 +43,7 @@ export const useAuthStore = defineStore('auth', {
         async logout(){
             try{
                 await signOut(auth)
-                .then(() => this.router.push({name: 'auth.login'}))
+                window.location.href = '/Iniciar-sesion'
             } catch (error){
                 console.error(error)
                 handleError(error.code)

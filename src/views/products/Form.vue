@@ -18,12 +18,10 @@
                     <FormKit type="number" label="Cantidad mínima"  help="Cantidad minima en stock" name="stock_min" validation="required|number|min:0" v-model="form.min_stock"></FormKit>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <label class="form-label" required>Precio unidad</label>
-                    <VueNumberFormat v-model:value="form.unit_cost" class="form-control" :class="{'is-valid': form.unit_cost >= 0, 'is-invalid': form.unit_cost === 0}" min="0"></VueNumberFormat>
+                    <FormKit type="number"  prefix-icon="usdc" label="Precio unidad" name="unit_cost" validation="required|number|min:0" v-model="form.unit_cost"></FormKit>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <label class="form-label" required>Precio mayoreo</label>
-                    <VueNumberFormat v-model:value="form.wholesale_cost" class="form-control" :class="{'is-valid': form.wholesale_cost >= 0, 'is-invalid': form.wholesale_cost === 0}" min="0"></VueNumberFormat>
+                    <FormKit type="number"  prefix-icon="usdc" label="Precio mayoreo" name="wholesale_cost" validation="required|number|min:0" v-model="form.wholesale_cost"></FormKit>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                     <FormKit type="number" label="Cantidad minima para mayoreo" help="Cantidad minima acceder al precio mayoreo" name="min_wholesale_cost" validation="required|number" v-model="form.min_wholesale_cost"></FormKit>

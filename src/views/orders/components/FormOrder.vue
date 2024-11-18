@@ -16,8 +16,7 @@
             <v-select autocomplete="off" :options="['Efectivo', 'Transferencia', 'Tarjeta' ]" v-model="form.payment_type"></v-select>
         </div>
         <div class="col-6 col-lg-6 mb-3">
-            <label class="form-label">Total</label>
-            <VueNumberFormat autocomplete="off" disabled :value="form.total ?? 0" class="form-control"></VueNumberFormat>
+            <FormKit type="number"  prefix-icon="usdc" label="Total" name="total" validation="required|number|min:0" v-model="form.total" disabled></FormKit>
         </div>
         
         <div class="col-12 mb-3">
