@@ -76,9 +76,9 @@ export const useOrdersStore = defineStore('orders', {
         async confirmDelete(id, redirect = false){
             Swal.fire({
                 title: 'confirmación necesaria!',
-                html: '¿Estas seguro de eliminar esta orden?, <br> <b>No la volveras a recuperar</b>',
+                html: '¿Estas seguro de eliminar este pedido?, <br> <b>No la volveras a recuperar</b>',
                 showDenyButton: true,
-                confirmButtonText: "Eliminar orden",
+                confirmButtonText: "Eliminar pedido",
                 denyButtonText: "Cancelar",
                 icon: "question",
                 showLoaderOnConfirm: true,
@@ -97,7 +97,7 @@ export const useOrdersStore = defineStore('orders', {
                 await deleteDoc(doc(db, "orders", id))
                 await this.getAllOrders()
                 Swal.fire({
-                    title: 'Orden eliminada',
+                    title: 'pedido eliminado',
                     icon:'success'
                 })
                 return true

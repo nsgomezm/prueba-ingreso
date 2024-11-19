@@ -2,7 +2,7 @@
     <div class="card card-body mx-3 position-reative">
         <LoaderSection type="scaling-squares-spinner" :settings="{size: 80}" v-if="isLoadingInformation" ></LoaderSection>
         <FormKit type="form" id="form-order" :actions="false" #default="{state: {valid}}" @submit.prevent="store">
-            <h3 class="fz-big fw-bold">Creación de orden </h3>
+            <h3 class="fz-big fw-bold">Creación de pedido </h3>
             <hr>
             
             <BackendError :backend-errors="errors" v-if="errors"></BackendError>
@@ -20,7 +20,7 @@
                             <LoaderSpinner  v-if="isLoading" class="me-2"></LoaderSpinner>
                             {{ form.id !== undefined ? 
                                 isLoading ? "Actualizando": "Actualizar" : 
-                                isLoading ? 'Creando': 'Crear' }} Orden
+                                isLoading ? 'Creando': 'Crear' }} pedido
                         </button>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
         if(props.id){
             const res = await ordersStore.findOrder(props.id)
             if(!res){
-                Swal.fire('Ops', 'Esta orden no existe', 'warning')
+                Swal.fire('Ops', 'Este pedido no existe', 'warning')
                 router.push({name: 'orders'})
                 return
             } 
@@ -106,14 +106,14 @@
             
             if(form.value.id){
                 const res = await ordersStore.update(form.value)
-                notify.success({ message: 'Orden actualizada' })
+                notify.success({ message: 'Pedido actualizado' })
 
                 router.push({name: 'orders'})
                 return
             }
 
             await ordersStore.store(form.value)
-            notify.success({ message: 'Orden creada' })
+            notify.success({ message: 'Pedido creado' })
 
             router.push({name: 'orders'})
 
