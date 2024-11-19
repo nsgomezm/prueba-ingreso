@@ -100,6 +100,8 @@ export const useOrdersStore = defineStore('orders', {
                     title: 'pedido eliminado',
                     icon:'success'
                 })
+
+                this.router.push({name: 'orders'})
                 return true
             } catch (error){
                 console.log(error)
